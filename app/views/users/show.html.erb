@@ -1,0 +1,30 @@
+<h1>User info</h1>
+
+<div>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  <p>name : <%= @user.name %></p>
+  <!--下のコメント1行はイントロダクションのモデルがUserなのか別のモデル作るのか分からず保留-->
+  <!--<p>Introduction : < %= @user.introduction % ></p>-->
+</div>
+
+<% if @user == current_user %>
+  <p><%= link_to "setting", edit_user_path(@user.id) %></p>
+<% else %>
+  <p><%= link_to "setting", user_path(current_user.id) %></p>
+<% end %>
+
+<!--ユーザーの投稿一覧-->
+<h1>Books</h1>
+<% @books.each do |book| %>
+<div>
+  <%= image_tag book.get_image %>
+  <p>title :
+    <%= link_to book_path(book.id) do %>
+      <%= book.title %>
+    <% end %>
+  </p>
+  <p>boey : <%= book.body %></p>
+</div>
+<% end %>
+
+
