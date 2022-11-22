@@ -1,15 +1,46 @@
-<p id="notice">
-  <%= flash[:notice] %>
-</p>
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <!--ユーザー情報を部分テンプレートから呼び出し-->
+        <%= render "users/user_info", user: @user %>
+        <!--新しいBookの投稿フォームを部分テンプレートから呼び出し-->
+        <%= render "book", book: @book %>
+      </div>
+      <!--Bookの詳細画面-->
+      <div class="col-md-8 offset-md-1">
+        <h2>Book detail</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <%= link_to user_path(@book.user.id) do %>
+                  <%= image_tag @book.user.get_profile_image(100,100)%></br>
+                  <%= @book.user.name %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to book_path(@book.id) do %>
+                  <%= @book.title %>
+                <% end %>
+              </td>
+              <td>
+                <%= @book.body %>
+              </td>
+              <% if @book.user == current_user %>
+                <td>
+                  <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %>
+                </td>
+                <td>
+                  <%= link_to "Destroy", book_path(@book.id), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に消しますか?" %>
+                </td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
 
-<h1>Books detail</h1>
-<div>
-  <%= image_tag @book.get_image %>
-  <p>title : <%= @book.title %></p>
-  <p>body : <%= @book.body %></p>
-  <% if @book.user == current_user %>
-    <p><%= link_to "Edit", edit_book_path(@book.id) %></p>
-    <p><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか?" %>
-  <% end %>
-  <p>ユーザー名 : <%= @book.user.name %></p>
-</div>
+
