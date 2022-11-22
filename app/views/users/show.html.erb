@@ -9,21 +9,9 @@
         <!--新しいBookの投稿フォームを部分テンプレートから呼び出し-->
         <%= render "books/book", book: @book %>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 offset-md-1">
         <%= render "books/books", books: @books %>
       </div>
     </div>
   </div>
 </main>
-
-
-
-
-
-  <!--下のコメント1行はイントロダクションのモデルがUserなのか別のモデル作るのか分からず保留-->
-  <!--<p>Introduction : < %= @user.introduction % ></p>-->
-
-
-
-<!--ユーザーの投稿一覧-->
-
